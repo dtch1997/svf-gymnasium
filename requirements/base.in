@@ -1,3 +1,4 @@
 stable-baselines3[extra]
 gymnasium[mujoco]
 rl_zoo3
+lxm3 @ git+https://github.com/ethanluoyc/lxm3
