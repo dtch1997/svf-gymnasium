@@ -13,6 +13,8 @@ absl-py==1.4.0
     #   tensorboard
 ale-py==0.8.1
     # via shimmy
+alembic==1.11.2
+    # via optuna
 autorom[accept-rom-license]==0.6.1
     # via stable-baselines3
 autorom-accept-rom-license==0.6.1
@@ -21,6 +23,8 @@ cachetools==5.3.1
     # via google-auth
 certifi==2023.7.22
     # via requests
+chardet==5.2.0
+    # via mbstrdecoder
 charset-normalizer==3.2.0
     # via requests
 click==8.1.6
@@ -29,22 +33,35 @@ click==8.1.6
     #   autorom-accept-rom-license
 cloudpickle==2.2.1
     # via
+    #   gym
     #   gymnasium
+    #   huggingface-sb3
     #   stable-baselines3
+cmaes==0.10.0
+    # via optuna
 cmake==3.27.2
     # via triton
+colorlog==6.7.0
+    # via optuna
 contourpy==1.1.0
     # via matplotlib
 cycler==0.11.0
     # via matplotlib
+dataproperty==1.0.1
+    # via
+    #   pytablewriter
+    #   tabledata
 farama-notifications==0.0.4
     # via gymnasium
 filelock==3.12.2
     # via
+    #   huggingface-hub
     #   torch
     #   triton
 fonttools==4.42.0
     # via matplotlib
+fsspec==2023.6.0
+    # via huggingface-hub
 glfw==2.6.2
     # via mujoco
 google-auth==2.22.0
@@ -53,13 +70,23 @@ google-auth==2.22.0
     #   tensorboard
 google-auth-oauthlib==1.0.0
     # via tensorboard
+greenlet==2.0.2
+    # via sqlalchemy
 grpcio==1.57.0
     # via tensorboard
+gym==0.26.2
+    # via rl-zoo3
+gym-notices==0.0.8
+    # via gym
 gymnasium[mujoco]==0.28.1
     # via
     #   -r requirements/base.in
     #   shimmy
     #   stable-baselines3
+huggingface-hub==0.16.4
+    # via huggingface-sb3
+huggingface-sb3==2.2.5
+    # via rl-zoo3
 idna==3.4
     # via requests
 imageio==2.31.1
@@ -67,11 +94,14 @@ imageio==2.31.1
 importlib-metadata==6.8.0
     # via
     #   ale-py
+    #   alembic
+    #   gym
     #   gymnasium
     #   markdown
 importlib-resources==6.0.1
     # via
     #   ale-py
+    #   alembic
     #   autorom
     #   autorom-accept-rom-license
     #   matplotlib
@@ -83,6 +113,8 @@ kiwisolver==1.4.4
     # via matplotlib
 lit==16.0.6
     # via triton
+mako==1.2.4
+    # via alembic
 markdown==3.4.4
     # via tensorboard
 markdown-it-py==3.0.0
@@ -90,9 +122,15 @@ markdown-it-py==3.0.0
 markupsafe==2.1.3
     # via
     #   jinja2
+    #   mako
     #   werkzeug
 matplotlib==3.7.2
     # via stable-baselines3
+mbstrdecoder==1.1.3
+    # via
+    #   dataproperty
+    #   pytablewriter
+    #   typepy
 mdurl==0.1.2
     # via markdown-it-py
 mpmath==1.3.0
@@ -104,13 +142,17 @@ networkx==3.1
 numpy==1.24.4
     # via
     #   ale-py
+    #   cmaes
     #   contourpy
+    #   gym
     #   gymnasium
+    #   huggingface-sb3
     #   imageio
     #   jax-jumpy
     #   matplotlib
     #   mujoco
     #   opencv-python
+    #   optuna
     #   pandas
     #   shimmy
     #   stable-baselines3
@@ -144,10 +186,18 @@ oauthlib==3.2.2
     # via requests-oauthlib
 opencv-python==4.8.0.76
     # via stable-baselines3
+optuna==3.3.0
+    # via rl-zoo3
 packaging==23.1
-    # via matplotlib
+    # via
+    #   huggingface-hub
+    #   matplotlib
+    #   optuna
+    #   typepy
 pandas==2.0.3
     # via stable-baselines3
+pathvalidate==2.5.2
+    # via pytablewriter
 pillow==10.0.0
     # via
     #   imageio
@@ -171,34 +221,62 @@ pyopengl==3.1.7
     # via mujoco
 pyparsing==3.0.9
     # via matplotlib
+pytablewriter==0.64.2
+    # via rl-zoo3
 python-dateutil==2.8.2
     # via
     #   matplotlib
     #   pandas
+    #   typepy
 pytz==2023.3
-    # via pandas
+    # via
+    #   pandas
+    #   typepy
+pyyaml==6.0.1
+    # via
+    #   huggingface-hub
+    #   huggingface-sb3
+    #   optuna
+    #   rl-zoo3
 requests==2.31.0
     # via
     #   autorom
     #   autorom-accept-rom-license
+    #   huggingface-hub
     #   requests-oauthlib
     #   tensorboard
 requests-oauthlib==1.3.1
     # via google-auth-oauthlib
 rich==13.5.2
-    # via stable-baselines3
+    # via
+    #   rl-zoo3
+    #   stable-baselines3
+rl-zoo3==2.0.0
+    # via -r requirements/base.in
 rsa==4.9
     # via google-auth
+sb3-contrib==2.0.0
+    # via rl-zoo3
 shimmy[atari]==0.2.1
     # via stable-baselines3
 six==1.16.0
     # via
     #   google-auth
     #   python-dateutil
+sqlalchemy==2.0.19
+    # via
+    #   alembic
+    #   optuna
 stable-baselines3[extra]==2.0.0
-    # via -r requirements/base.in
+    # via
+    #   -r requirements/base.in
+    #   sb3-contrib
 sympy==1.12
     # via torch
+tabledata==1.3.1
+    # via pytablewriter
+tcolorpy==0.1.3
+    # via pytablewriter
 tensorboard==2.14.0
     # via stable-baselines3
 tensorboard-data-server==0.7.1
@@ -208,14 +286,26 @@ torch==2.0.1
     #   stable-baselines3
     #   triton
 tqdm==4.66.1
-    # via stable-baselines3
+    # via
+    #   huggingface-hub
+    #   optuna
+    #   rl-zoo3
+    #   stable-baselines3
 triton==2.0.0
     # via torch
+typepy[datetime]==1.3.1
+    # via
+    #   dataproperty
+    #   pytablewriter
+    #   tabledata
 typing-extensions==4.7.1
     # via
     #   ale-py
+    #   alembic
     #   gymnasium
+    #   huggingface-hub
     #   rich
+    #   sqlalchemy
     #   torch
 tzdata==2023.3
     # via pandas
@@ -223,6 +313,8 @@ urllib3==1.26.16
     # via
     #   google-auth
     #   requests
+wasabi==1.1.2
+    # via huggingface-sb3
 werkzeug==2.3.7
     # via tensorboard
 wheel==0.41.1
