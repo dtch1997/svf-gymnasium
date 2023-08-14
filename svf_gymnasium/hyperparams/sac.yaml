@@ -163,6 +163,41 @@ Swimmer-v4:
   train_freq: 1
   gradient_steps: 1
 
+# === Safe Mujoco v4 Envs ===
+
+Safe-HalfCheetah-v4:
+  <<: *mujoco-defaults
+
+Safe-Ant-v4:
+  <<: *mujoco-defaults
+
+Safe-Hopper-v4:
+  <<: *mujoco-defaults
+  # SAC Hyperparams
+  train_freq: 1
+  gradient_steps: 1
+  learning_rate: !!float 3e-4
+  batch_size: 256
+
+Safe-Walker2d-v4:
+  <<: *mujoco-defaults
+
+Safe-Humanoid-v4:
+  <<: *mujoco-defaults
+  n_timesteps: !!float 2e6
+  # SAC Hyperparams
+  train_freq: 1
+  gradient_steps: 1
+  learning_rate: !!float 3e-4
+  batch_size: 256
+
+# Tuned
+Safe-Swimmer-v4:
+  <<: *mujoco-defaults
+  gamma: 0.9999
+  train_freq: 1
+  gradient_steps: 1
+
 # === Mujoco Envs ===
 
 HalfCheetah-v3:
