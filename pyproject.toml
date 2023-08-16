@@ -1,0 +1,11 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "svf_gymnasium"
+version = "0.0.1"
+description = "Safe value functions in Gymnasium"
+authors = [{name="Daniel CH Tan", email="dtch1997@users.noreply.github.com"}]
+license = "MIT"
+readme = "README.md"

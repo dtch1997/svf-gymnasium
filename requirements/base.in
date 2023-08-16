@@ -1,0 +1,4 @@
+lxm3 @ git+https://github.com/dtch1997/lxm3.git
+stable-baselines3[extra]
+gymnasium[mujoco]
+rl_zoo3
