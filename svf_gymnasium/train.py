@@ -390,6 +390,10 @@ def train() -> None:
     else:
         exp_manager.hyperparameters_optimization()
 
+    # Save files to WandB
+    if args.track:
+        wandb.save(f"{exp_manager.save_path}/*")
+
 
 if __name__ == "__main__":
     train()
