@@ -18,7 +18,6 @@ for env_id in (
     "Walker2d-v4",
     "Ant-v4",
     "Humanoid-v4",
-    "Swimmer-v4",
 ):
     register(
         id=f"Safe-{env_id}",
