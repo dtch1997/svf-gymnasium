@@ -15,9 +15,9 @@ from stable_baselines3.common.vec_env import (
 
 
 def evaluate_safety_constrain(
-    model: "type_aliases.PolicyPredictor",
     filter: "svf_type_aliases.SafetyFilter",
     env: Union[gym.Env, VecEnv],
+    model: Optional[type_aliases.PolicyPredictor] = None,
     n_eval_episodes: int = 10,
     deterministic: bool = True,
     render: bool = False,
@@ -27,7 +27,7 @@ def evaluate_safety_constrain(
     warn: bool = True,
 ) -> Union[Tuple[float, float], Tuple[List[float], List[int]]]:
     """
-    Runs policy for ``n_eval_episodes`` episodes and returns average reward.
+    Evaluates nominal policy + safety filter for ``n_eval_episodes`` episodes and returns average reward.
     If a vector env is passed in, this divides the episodes to evaluate onto the
     different elements of the vector env. This static division of work is done to
     remove bias. See https://github.com/DLR-RM/stable-baselines3/issues/402 for more
@@ -41,10 +41,11 @@ def evaluate_safety_constrain(
         results as well. You can avoid this by wrapping environment with ``Monitor``
         wrapper before anything else.
 
-    :param model: The RL agent you want to evaluate. This can be any object
-        that implements a `predict` method, such as an RL algorithm (``BaseAlgorithm``)
-        or policy (``BasePolicy``).
+    :param filter: The safety filter you want to evaluate. This can be any object
+        that implements a `predict` method.
     :param env: The gym environment or ``VecEnv`` environment.
+    :param model: The policy model you want to evaluate. This can be any object
+        that implements a `predict` method. If None, a random policy is used.
     :param n_eval_episodes: Number of episode to evaluate the agent
     :param deterministic: Whether to use deterministic or stochastic actions
     :param render: Whether to render the environment or not
@@ -96,8 +97,11 @@ def evaluate_safety_constrain(
     states = None
     episode_starts = np.ones((env.num_envs,), dtype=bool)
     while (episode_counts < episode_count_targets).any():
-        actions, states = model.predict(
+        # Take a random action
+        nominal_actions = env.action_space.sample()
+        actions, states = filter.predict(
             observations,  # type: ignore[arg-type]
+            nominal_actions,
             state=states,
             episode_start=episode_starts,
             deterministic=deterministic,
