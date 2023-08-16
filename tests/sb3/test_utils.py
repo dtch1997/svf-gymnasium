@@ -4,7 +4,7 @@ from unittest.mock import Mock, patch
 import numpy as np
 
 # Assuming the provided code is in a module named 'safety_evaluation'
-from svf_gymnasium.utils import evaluate_safety_constrain
+from svf_gymnasium.sb3.utils import evaluate_safety_constrain
 
 # Mocking the environment
 @pytest.fixture

@@ -5,7 +5,7 @@ import gymnasium as gym
 import numpy as np
 
 from stable_baselines3.common import type_aliases
-from svf_gymnasium import type_aliases as svf_type_aliases
+from svf_gymnasium.sb3 import type_aliases as svf_type_aliases
 from stable_baselines3.common.vec_env import (
     DummyVecEnv,
     VecEnv,
