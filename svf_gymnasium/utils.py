@@ -98,7 +98,15 @@ def evaluate_safety_constrain(
     episode_starts = np.ones((env.num_envs,), dtype=bool)
     while (episode_counts < episode_count_targets).any():
         # Take a random action
-        nominal_actions = env.action_space.sample()
+        if model is not None:
+            nominal_actions = model.predict(
+                observations,  # type: ignore[arg-type]
+                state=states,
+                episode_start=episode_starts,
+                deterministic=deterministic,
+            )
+        else:
+            nominal_actions = [env.action_space.sample() for _ in range(env.num_envs)]
         actions, states = filter.predict(
             observations,  # type: ignore[arg-type]
             nominal_actions,
