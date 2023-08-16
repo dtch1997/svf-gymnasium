@@ -25,8 +25,10 @@ compile: requirements/base.txt requirements/dev.txt
 test: 
 	.venv/bin/python -m pytest -m pytest tests --cov=svf_gymnasium --cov-report=xml
 
-install: .venv compile .install_requires
+setup: .venv compile .install_requires
+
+install: .venv .install_requires
 
 all: install test
 
-.PHONY: .install_requires compile install test all
+.PHONY: .install_requires compile install test all setup
