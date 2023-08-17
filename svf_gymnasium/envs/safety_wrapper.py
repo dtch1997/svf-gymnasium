@@ -20,10 +20,11 @@ reward_transforms = {
 class BoundedRewardWrapper(gym.RewardWrapper):
     """Wrapper that squashes rewards to [0, 1]"""
 
-    def __init__(self, env: Env, strategy: str = "sigmoid"):
+    def __init__(self, env: Env, strategy: str = "clip", scale=5):
         super().__init__(env)
         self.strategy = strategy
         self.reward_transform = reward_transforms[strategy]
+        self.scale = scale
 
     def reward(self, reward):
-        return self.reward_transform(reward)
+        return self.reward_transform(reward / self.scale)

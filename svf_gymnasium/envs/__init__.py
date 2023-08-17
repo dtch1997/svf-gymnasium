@@ -5,9 +5,11 @@ from gymnasium.envs.registration import register
 from svf_gymnasium.envs import safety_wrapper
 
 
-def make_safety_env(env_id):
+def make_safety_env_factory(env_id):
     """Create a safety wrapper around an environment"""
-    return safety_wrapper.BoundedRewardWrapper(gym.make(env_id))
+    return lambda **kwargs: safety_wrapper.BoundedRewardWrapper(
+        gym.make(env_id, **kwargs)
+    )
 
 
 for env_id in (
@@ -16,10 +18,10 @@ for env_id in (
     "Walker2d-v4",
     "Ant-v4",
     "Humanoid-v4",
-    "Swimmer-v4",
 ):
     register(
         id=f"Safe-{env_id}",
-        entry_point=lambda: make_safety_env(env_id),
+        # Need to use a factory here to avoid registering the same env multiple times
+        entry_point=make_safety_env_factory(env_id),
         max_episode_steps=1000,
     )
