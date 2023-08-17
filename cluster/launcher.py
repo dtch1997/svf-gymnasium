@@ -27,7 +27,7 @@ def main(_):
         if _GPU.value:
             job_requirements = xm_cluster.JobRequirements(
                 gpu=1,
-                ram=16 * xm.GB,
+                ram=2 * xm.GB,
                 cpu=16,
             )
         else:

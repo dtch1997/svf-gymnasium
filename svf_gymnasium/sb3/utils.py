@@ -6,12 +6,61 @@ import numpy as np
 
 from stable_baselines3.common import type_aliases
 from svf_gymnasium.sb3 import type_aliases as svf_type_aliases
+from stable_baselines3.common.policies import ContinuousCritic, BasePolicy
 from stable_baselines3.common.vec_env import (
     DummyVecEnv,
     VecEnv,
     VecMonitor,
     is_vecenv_wrapped,
 )
+
+
+class SafetyFilterWrapper(svf_type_aliases.SafetyFilter):
+    """Wraps a critic as a safety filter."""
+
+    def __init__(
+        self, policy: BasePolicy, critic: ContinuousCritic, safety_threshold: float
+    ):
+        self.policy = policy
+        self.critic = critic
+        self.safety_threshold = safety_threshold
+
+    def predict(
+        self,
+        observation: Union[np.ndarray, Dict[str, np.ndarray]],
+        nominal_action: np.ndarray,
+        state: Optional[Tuple[np.ndarray, ...]] = None,
+        episode_start: Optional[np.ndarray] = None,
+        deterministic: bool = False,
+    ) -> Tuple[np.ndarray, Optional[Tuple[np.ndarray, ...]]]:
+        """
+        Predicts the safety action given the current observation and nominal action.
+
+        :param observation: The current observation.
+        :param nominal_action: The nominal action.
+        :param state: The current state.
+        :param episode_start: Whether the current step is the start of a new episode.
+        :param deterministic: Whether to use deterministic or stochastic actions.
+        :return: The safety action and the new state.
+        """
+        obs_th = self.policy.obs_to_tensor(observation)
+        act_th = self.policy.obs_to_tensor(nominal_action)
+
+        nominal_q_values = self.critic(obs_th, act_th)
+        is_safe = nominal_q_values > self.safety_threshold
+
+        if is_safe:
+            return nominal_action, state
+        if not is_safe:
+            return (
+                self.policy.predict(
+                    observation,
+                    state=state,
+                    episode_start=episode_start,
+                    deterministic=deterministic,
+                ),
+                state,
+            )
 
 
 def evaluate_safety_constrain(
