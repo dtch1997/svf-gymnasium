@@ -43,14 +43,14 @@ def make_wrapped_safety_gymnasium_env_factory(env_id):
     return make_env
 
 
-for env_id in (
-    "SafetyPointGoal1-v0",
-    "SafetyDoggoGoal1-v0",
-    "SafetyCarGoal1-v0",
-):
-    register(
-        id=f"Wrapped-{env_id}",
-        # Need to use a factory here to avoid registering the same env multiple times
-        entry_point=make_wrapped_safety_gymnasium_env_factory(env_id),
-        max_episode_steps=1000,
-    )
+for task in ("Goal", "Button", "Push", "Circle"):
+    for robot in ("Point", "Car", "Doggo", "Ant"):
+        for level in (0, 1, 2):
+
+            env_id = f"Safety{robot}{task}{level}-v0"
+            register(
+                id=f"Wrapped-{env_id}",
+                # Need to use a factory here to avoid registering the same env multiple times
+                entry_point=make_wrapped_safety_gymnasium_env_factory(env_id),
+                max_episode_steps=1000,
+            )
