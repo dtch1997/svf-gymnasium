@@ -12,9 +12,8 @@ do
                 for algo in ppo sac dreamer_v3 p2e_dv2
                 do
                     env_id="Wrapped-Safety${robot}${task}${level}-v0"
-                    python -m svf_gymnasium.sheeprl.train \
+                    python -m svf_gymnasium.sheeprl.train ${algo} \
                         --env $env_id \
-                        --algo $algo \
                         --seed $seed \
                         --track \
                         --wandb_group safety-violation-expt \
