@@ -3,6 +3,8 @@
 import gymnasium as gym
 from gymnasium.envs.registration import register
 from svf_gymnasium.envs import safety_wrapper
+from svf_gymnasium.envs.safety_gymnasium_wrappers import *
+import safety_gymnasium
 
 
 def make_safety_env_factory(env_id):
@@ -23,5 +25,32 @@ for env_id in (
         id=f"Safe-{env_id}",
         # Need to use a factory here to avoid registering the same env multiple times
         entry_point=make_safety_env_factory(env_id),
+        max_episode_steps=1000,
+    )
+
+
+def make_wrapped_safety_gymnasium_env_factory(env_id):
+    """Create a safety wrapper around a safety gymnasium environment"""
+
+    def make_env(**kwargs):
+        orig_env = safety_gymnasium.make(env_id, **kwargs)
+        env = orig_env
+        env = EarlyTerminationWrapper(env)
+        env = BoundedRewardWrapper(env)
+        env = safety_gymnasium.wrappers.SafetyGymnasium2Gymnasium(env)
+        return env
+
+    return make_env
+
+
+for env_id in (
+    "SafetyPointGoal1-v0",
+    "SafetyDoggoGoal1-v0",
+    "SafetyCarGoal1-v0",
+):
+    register(
+        id=f"Wrapped-{env_id}",
+        # Need to use a factory here to avoid registering the same env multiple times
+        entry_point=make_wrapped_safety_gymnasium_env_factory(env_id),
         max_episode_steps=1000,
     )
