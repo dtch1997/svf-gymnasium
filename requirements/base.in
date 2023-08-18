@@ -1,4 +1,4 @@
 lxm3 @ git+https://github.com/ethanluoyc/lxm3.git@333f060414062914bbb99a21509a318eb03d727b
 wandb
 mujoco==2.3.3
-omnisafe
+safety-gymnasium
