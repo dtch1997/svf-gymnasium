@@ -11,7 +11,7 @@ class EarlyTerminationWrapper(gym.Wrapper):
 
 
 class BoundedRewardWrapper(gym.Wrapper):
-    def __init__(self, env, reward_bound: float = 1.0):
+    def __init__(self, env, reward_bound: float = 0.05):
         super().__init__(env)
         self.reward_bound = reward_bound
 
@@ -19,5 +19,4 @@ class BoundedRewardWrapper(gym.Wrapper):
         obs, reward, cost, terminated, truncated, info = self.env.step(action)
         info["reward"] = reward
         reward = min(self.reward_bound, reward)
-        reward = max(0, reward)
         return obs, reward, cost, terminated, truncated, info
