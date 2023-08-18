@@ -33,10 +33,10 @@ def make_wrapped_safety_gymnasium_env_factory(env_id):
     """Create a safety wrapper around a safety gymnasium environment"""
 
     def make_env(**kwargs):
-        orig_env = safety_gymnasium.make(env_id, **kwargs)
-        env = orig_env
-        env = EarlyTerminationWrapper(env)
+        env = safety_gymnasium.make(env_id, **kwargs)
+        env = InfoWrapper(env)
         env = BoundedRewardWrapper(env)
+        env = CostPenaltyWrapper(env)
         env = safety_gymnasium.wrappers.SafetyGymnasium2Gymnasium(env)
         return env
 

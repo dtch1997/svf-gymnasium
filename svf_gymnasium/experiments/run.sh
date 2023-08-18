@@ -1,4 +1,4 @@
-#!/.bin/bash
+#!/bin/bash
 
 
 for seed in 0 1 2
