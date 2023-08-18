@@ -27,11 +27,10 @@ def main(_):
         if _GPU.value:
             job_requirements = xm_cluster.JobRequirements(
                 gpu=1,
-                ram=2 * xm.GB,
-                cpu=16,
+                ram=16 * xm.GB,
             )
         else:
-            job_requirements = xm_cluster.JobRequirements(ram=16 * xm.GB, cpu=16)
+            job_requirements = xm_cluster.JobRequirements(ram=16 * xm.GB)
         print(job_requirements.task_requirements)
         if _LAUNCH_ON_CLUSTER.value:
             # This is a special case for using SGE in UCL where we use generic
@@ -51,7 +50,7 @@ def main(_):
             # Entrypoint is the python module that you would like to
             # In the implementation, this is translated to
             #   python3 -m py_package.main
-            entrypoint=xm_cluster.ModuleName("svf_gymnasium.train"),
+            entrypoint=xm_cluster.ModuleName("svf_gymnasium.sheeprl.train"),
         )
 
         # Wrap the python_package to be executing in a singularity container.
@@ -70,44 +69,40 @@ def main(_):
         with experiment.batch():
 
             global_args = {
-                "algo": "sac",
-                "env": "Hopper-v4",
-                "conf": "svf_gymnasium/hyperparams/sac.yaml",
+                "algo": None,
+                "env": None,
                 "track": True,
+                "seed": None,
+                "wandb-group": "no-term-expt-2",
+                "total_step": 1000000,
                 "wandb-entity": "dtch1997",
                 "wandb-project": "svf_gymnasium",
             }
 
-            envs = [
-                "Hopper-v4",
-                "Safe-Hopper-v4",
-                "HalfCheetah-v4",
-                "Safe-HalfCheetah-v4",
-            ]
+            for seed in range(3):
+                for task in ("Goal",):
+                    for robot in ("Point", "Car"):
+                        for level in (1, 2):
+                            for algo in ("dreamer_v3",):
 
-            num_envs = len(envs)
-            for i in range(2 * len(envs)):
+                                args = global_args.copy()
+                                args["algo"] = algo
+                                args["env"] = f"Wrapped-Safety{robot}{task}{level}-v0"
+                                args["seed"] = seed
 
-                args = global_args.copy()
-                # Configure run-specific args
-                if i // num_envs == 0:
-                    args["env"] = envs[i]
-                elif i // num_envs == 1:
-                    args["env"] = f"Safe-{envs[i % num_envs]}"
-
-                experiment.add(
-                    xm.Job(
-                        executable=executable,
-                        executor=executor,
-                        # You can pass additional arguments to your executable with args
-                        # This will be translated to `--seed 1`
-                        # Note for booleans we currently use the absl.flags convention
-                        # so {'gpu': False} will be translated to `--nogpu`
-                        args=args,
-                        # You can customize environment_variables as well.
-                        # env_vars={"TASK": str(i)},
-                    )
-                )
+                                experiment.add(
+                                    xm.Job(
+                                        executable=executable,
+                                        executor=executor,
+                                        # You can pass additional arguments to your executable with args
+                                        # This will be translated to `--seed 1`
+                                        # Note for booleans we currently use the absl.flags convention
+                                        # so {'gpu': False} will be translated to `--nogpu`
+                                        args=args,
+                                        # You can customize environment_variables as well.
+                                        # env_vars={"TASK": str(i)},
+                                    )
+                                )
 
         # You can also use a job generator.
         # This is useful for example in a few cases
