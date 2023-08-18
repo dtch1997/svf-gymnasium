@@ -12,16 +12,39 @@ absl-py==1.4.0
     #   lxm3
     #   ml-collections
     #   mujoco
+    #   tensorboard
+aiohttp==3.8.5
+    # via fsspec
+aiosignal==1.3.1
+    # via aiohttp
+annotated-types==0.5.0
+    # via pydantic
+anyio==3.7.1
+    # via starlette
 appdirs==1.4.4
     # via
     #   lxm3
     #   wandb
+arrow==1.2.3
+    # via lightning
 async-generator==1.10
     # via lxm3
+async-timeout==4.0.3
+    # via aiohttp
 attrs==23.1.0
-    # via lxm3
+    # via
+    #   aiohttp
+    #   lxm3
+backoff==2.2.1
+    # via lightning
 bcrypt==4.0.1
     # via paramiko
+beautifulsoup4==4.12.2
+    # via lightning
+blessed==1.20.0
+    # via inquirer
+cachetools==5.3.1
+    # via google-auth
 certifi==2023.7.22
     # via
     #   requests
@@ -31,21 +54,56 @@ cffi==1.15.1
     #   cryptography
     #   pynacl
 charset-normalizer==3.2.0
-    # via requests
+    # via
+    #   aiohttp
+    #   requests
 click==8.1.6
-    # via wandb
+    # via
+    #   lightning
+    #   lightning-cloud
+    #   uvicorn
+    #   wandb
 cloudpickle==2.2.1
-    # via gymnasium
+    # via
+    #   gymnasium
+    #   tensordict
+cmake==3.27.2
+    # via triton
 contextlib2==21.6.0
     # via ml-collections
+croniter==1.4.1
+    # via lightning
 cryptography==41.0.3
     # via paramiko
+dateutils==0.6.12
+    # via lightning
+decorator==5.1.1
+    # via moviepy
+deepdiff==6.3.1
+    # via lightning
 docker-pycreds==0.4.0
     # via wandb
+exceptiongroup==1.1.3
+    # via anyio
 farama-notifications==0.0.4
     # via gymnasium
-fsspec==2023.6.0
-    # via lxm3
+fastapi==0.101.1
+    # via
+    #   lightning
+    #   lightning-cloud
+filelock==3.12.2
+    # via
+    #   torch
+    #   triton
+frozenlist==1.4.0
+    # via
+    #   aiohttp
+    #   aiosignal
+fsspec[http]==2023.6.0
+    # via
+    #   lightning
+    #   lxm3
+    #   pytorch-lightning
 gitdb==4.0.10
     # via
     #   gitpython
@@ -56,89 +114,321 @@ gitpython==3.1.32
     #   wandb
 glfw==2.6.2
     # via mujoco
+google-auth==2.22.0
+    # via
+    #   google-auth-oauthlib
+    #   tensorboard
+google-auth-oauthlib==1.0.0
+    # via tensorboard
+grpcio==1.57.0
+    # via tensorboard
 gymnasium==0.28.1
-    # via safety-gymnasium
+    # via
+    #   safety-gymnasium
+    #   sheeprl
+h11==0.14.0
+    # via uvicorn
 idna==3.4
-    # via requests
+    # via
+    #   anyio
+    #   requests
+    #   yarl
 imageio==2.31.1
-    # via safety-gymnasium
+    # via
+    #   moviepy
+    #   safety-gymnasium
+imageio-ffmpeg==0.4.8
+    # via moviepy
 immutabledict==3.0.0
     # via lxm3
+inquirer==3.1.3
+    # via lightning
+itsdangerous==2.1.2
+    # via starsessions
 jax-jumpy==1.0.0
     # via gymnasium
+jinja2==3.1.2
+    # via
+    #   lightning
+    #   torch
+lightning==2.0.7
+    # via sheeprl
+lightning-cloud==0.5.37
+    # via lightning
+lightning-utilities==0.8.0
+    # via
+    #   lightning
+    #   pytorch-lightning
+    #   sheeprl
+    #   torchmetrics
+lit==16.0.6
+    # via triton
 lxm3 @ git+https://github.com/ethanluoyc/lxm3.git@333f060414062914bbb99a21509a318eb03d727b
     # via -r requirements/base.in
+markdown==3.4.4
+    # via tensorboard
 markdown-it-py==3.0.0
     # via rich
+markupsafe==2.1.3
+    # via
+    #   jinja2
+    #   werkzeug
 mdurl==0.1.2
     # via markdown-it-py
 ml-collections==0.1.1
     # via lxm3
+moviepy @ git+https://github.com/Zulko/moviepy.git
+    # via sheeprl
+mpmath==1.3.0
+    # via sympy
 mujoco==2.3.0
     # via
     #   -r requirements/base.in
     #   safety-gymnasium
+multidict==6.0.4
+    # via
+    #   aiohttp
+    #   yarl
+networkx==3.1
+    # via torch
 numpy==1.25.2
     # via
     #   gymnasium
     #   imageio
     #   jax-jumpy
+    #   lightning
+    #   moviepy
     #   mujoco
+    #   pytorch-lightning
+    #   tensorboard
+    #   tensordict
+    #   torchmetrics
+nvidia-cublas-cu11==11.10.3.66
+    # via
+    #   nvidia-cudnn-cu11
+    #   nvidia-cusolver-cu11
+    #   torch
+nvidia-cuda-cupti-cu11==11.7.101
+    # via torch
+nvidia-cuda-nvrtc-cu11==11.7.99
+    # via torch
+nvidia-cuda-runtime-cu11==11.7.99
+    # via torch
+nvidia-cudnn-cu11==8.5.0.96
+    # via torch
+nvidia-cufft-cu11==10.9.0.58
+    # via torch
+nvidia-curand-cu11==10.2.10.91
+    # via torch
+nvidia-cusolver-cu11==11.4.0.1
+    # via torch
+nvidia-cusparse-cu11==11.7.4.91
+    # via torch
+nvidia-nccl-cu11==2.14.3
+    # via torch
+nvidia-nvtx-cu11==11.7.91
+    # via torch
+oauthlib==3.2.2
+    # via requests-oauthlib
+ordered-set==4.1.0
+    # via deepdiff
+packaging==23.1
+    # via
+    #   lightning
+    #   lightning-utilities
+    #   pytorch-lightning
+    #   torchmetrics
 paramiko==3.3.1
     # via lxm3
 pathtools==0.1.2
     # via wandb
 pillow==10.0.0
     # via imageio
+proglog==0.1.10
+    # via moviepy
 protobuf==4.24.0
-    # via wandb
+    # via
+    #   tensorboard
+    #   wandb
 psutil==5.9.5
-    # via wandb
+    # via
+    #   lightning
+    #   wandb
+pyasn1==0.5.0
+    # via
+    #   pyasn1-modules
+    #   rsa
+pyasn1-modules==0.3.0
+    # via google-auth
 pycparser==2.21
     # via cffi
+pydantic==2.1.1
+    # via
+    #   fastapi
+    #   lightning
+pydantic-core==2.4.0
+    # via pydantic
 pygame==2.1.0
     # via safety-gymnasium
 pygments==2.16.1
     # via rich
+pyjwt==2.8.0
+    # via lightning-cloud
 pynacl==1.5.0
     # via paramiko
 pyopengl==3.1.7
     # via mujoco
+python-dateutil==2.8.2
+    # via
+    #   arrow
+    #   croniter
+    #   dateutils
+python-dotenv==1.0.0
+    # via sheeprl
+python-editor==1.0.4
+    # via inquirer
+python-multipart==0.0.6
+    # via
+    #   lightning
+    #   lightning-cloud
+pytorch-lightning==2.0.7
+    # via lightning
+pytz==2023.3
+    # via dateutils
 pyyaml==6.0.1
     # via
+    #   lightning
     #   ml-collections
+    #   pytorch-lightning
     #   safety-gymnasium
     #   wandb
+readchar==4.0.5
+    # via inquirer
 requests==2.31.0
-    # via wandb
+    # via
+    #   fsspec
+    #   lightning
+    #   lightning-cloud
+    #   requests-oauthlib
+    #   tensorboard
+    #   wandb
+requests-oauthlib==1.3.1
+    # via google-auth-oauthlib
 rich==13.5.2
-    # via lxm3
+    # via
+    #   lightning
+    #   lightning-cloud
+    #   lxm3
+rsa==4.9
+    # via google-auth
 safety-gymnasium==0.4.1
     # via -r requirements/base.in
 sentry-sdk==1.29.2
     # via wandb
 setproctitle==1.3.2
     # via wandb
+sheeprl @ git+https://github.com/dtch1997/sheeprl.git@0b2892f1527b88c5e74da77914aab1b3c9fc94d4
+    # via -r requirements/base.in
 six==1.16.0
     # via
+    #   blessed
     #   docker-pycreds
+    #   google-auth
+    #   lightning-cloud
     #   ml-collections
+    #   python-dateutil
 smmap==5.0.0
     # via gitdb
+sniffio==1.3.0
+    # via anyio
+soupsieve==2.4.1
+    # via beautifulsoup4
+starlette==0.27.0
+    # via
+    #   fastapi
+    #   lightning
+    #   starsessions
+starsessions==1.3.0
+    # via lightning
+sympy==1.12
+    # via torch
+tensorboard==2.14.0
+    # via sheeprl
+tensorboard-data-server==0.7.1
+    # via tensorboard
+tensordict==0.1.2
+    # via sheeprl
 tomli==2.0.1
     # via lxm3
+torch==2.0.1
+    # via
+    #   lightning
+    #   pytorch-lightning
+    #   tensordict
+    #   torchmetrics
+    #   triton
+torchmetrics==1.0.3
+    # via
+    #   lightning
+    #   pytorch-lightning
+tqdm==4.66.1
+    # via
+    #   lightning
+    #   proglog
+    #   pytorch-lightning
+traitlets==5.9.0
+    # via lightning
+triton==2.0.0
+    # via torch
 typing-extensions==4.7.1
-    # via gymnasium
+    # via
+    #   fastapi
+    #   gymnasium
+    #   lightning
+    #   lightning-utilities
+    #   pydantic
+    #   pydantic-core
+    #   pytorch-lightning
+    #   torch
+    #   uvicorn
 urllib3==1.26.16
     # via
+    #   google-auth
+    #   lightning
+    #   lightning-cloud
     #   requests
     #   sentry-sdk
+uvicorn==0.23.2
+    # via
+    #   lightning
+    #   lightning-cloud
 vcsinfo==2.1.105
     # via lxm3
 wandb==0.15.8
     # via -r requirements/base.in
+wcwidth==0.2.6
+    # via blessed
+websocket-client==1.6.1
+    # via
+    #   lightning
+    #   lightning-cloud
+websockets==11.0.3
+    # via lightning
+werkzeug==2.3.7
+    # via tensorboard
+wheel==0.41.1
+    # via
+    #   nvidia-cublas-cu11
+    #   nvidia-cuda-cupti-cu11
+    #   nvidia-cuda-runtime-cu11
+    #   nvidia-curand-cu11
+    #   nvidia-cusparse-cu11
+    #   nvidia-nvtx-cu11
+    #   tensorboard
 xmltodict==0.13.0
     # via safety-gymnasium
+yarl==1.9.2
+    # via aiohttp
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools

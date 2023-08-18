@@ -2,3 +2,4 @@ lxm3 @ git+https://github.com/ethanluoyc/lxm3.git@333f060414062914bbb99a21509a31
 wandb
 mujoco
 safety-gymnasium
+sheeprl @ git+https://github.com/dtch1997/sheeprl.git@0b2892f1527b88c5e74da77914aab1b3c9fc94d4
