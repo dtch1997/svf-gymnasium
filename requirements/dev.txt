@@ -193,7 +193,7 @@ lightning-utilities==0.8.0
 lit==16.0.6
     # via triton
 lxm3 @ git+https://github.com/ethanluoyc/lxm3.git@333f060414062914bbb99a21509a318eb03d727b
-    # via -r requirements/base.in
+    # via -r requirements/dev.in
 markdown==3.4.4
     # via tensorboard
 markdown-it-py==3.0.0

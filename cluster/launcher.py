@@ -69,14 +69,13 @@ def main(_):
         with experiment.batch():
 
             global_args = {
-                "algo": None,
                 "env": None,
                 "track": True,
                 "seed": None,
-                "wandb-group": "no-term-expt-2",
+                "wandb_group": "no-term-expt-2",
                 "total_step": 1000000,
-                "wandb-entity": "dtch1997",
-                "wandb-project": "svf_gymnasium",
+                "wandb_entity": "dtch1997",
+                "wandb_project": "svf_gymnasium",
             }
 
             for seed in range(3):
@@ -86,7 +85,6 @@ def main(_):
                             for algo in ("dreamer_v3",):
 
                                 args = global_args.copy()
-                                args["algo"] = algo
                                 args["env"] = f"Wrapped-Safety{robot}{task}{level}-v0"
                                 args["seed"] = seed
 
@@ -98,7 +96,7 @@ def main(_):
                                         # This will be translated to `--seed 1`
                                         # Note for booleans we currently use the absl.flags convention
                                         # so {'gpu': False} will be translated to `--nogpu`
-                                        args=args,
+                                        args=xm.merge_args([algo], args)
                                         # You can customize environment_variables as well.
                                         # env_vars={"TASK": str(i)},
                                     )
