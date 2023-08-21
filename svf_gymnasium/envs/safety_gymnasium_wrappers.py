@@ -22,7 +22,7 @@ class EarlyTerminationWrapper(gym.Wrapper):
 
 class CostPenaltyWrapper(gym.Wrapper):
     def __init__(
-        self, env, cost_limit: float = 1, cost_penalty: float = UNSAFE_PENALTY
+        self, env, cost_limit: float = 0, cost_penalty: float = UNSAFE_PENALTY
     ):
         super().__init__(env)
         self.cost_limit = cost_limit
